@@ -8,11 +8,12 @@ let array2 = [44, 22, 66, 55, 11, 99]
 //--- forEach() ---//
 
 const test = (elemento, i, array) => {
-    console.log(`${elemento} - ${i} - ${array}`)
+    console.log(`forEach ${elemento} - ${i} - ${array}`)
 }
 
 // Método forEach
-array1.forEach(test)
+// array1.forEach(test)
+// console.log( "-------------------------------" )
 
 // New forEach
 const newForEach = ( vetor, FuncCallBack) => {
@@ -23,33 +24,34 @@ const newForEach = ( vetor, FuncCallBack) => {
 }
 
 newForEach(array1,test)
+console.log( "-------------------------------" )
 
 
-///////////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////////
 //--- fill() ---//
 let arrayFill = [44, 22, 66, 55, 11, 99]
 
 
 //Método  fill()
-arrayFill.fill(1)
-console.log(arrayFill)
+// arrayFill.fill(1)
+// console.log("Método Fill", arrayFill)
 
 // newFill()
 
-const newFill = (valor) => {
+const newFill = (array, valor) => {
     if (valor === NaN || valor === undefined) {
         valor = 0
     }
-    for (let i = 0; i < arrayFill.length; i++) {
-        arrayFill[i] = valor
+    for (let i = 0; i < array.length; i++) {
+        array[i] = valor
     }
-    console.log(arrayFill)
+    return array
 }
-newFill(5)
+console.log( "newFill ",newFill(arrayFill, 5))
+console.log( "-------------------------------" )
 
-
-///////////////////////////////////////////////////////////////////////////
-//--- map() ---//
+// ///////////////////////////////////////////////////////////////////////////
+// //--- map() ---//
 
 // callback
 const testCallBack = value => {
@@ -59,21 +61,21 @@ let ArreyMap01 = new Array
 let ArreyMap02 = new Array
 
 // método map()
-ArreyMap01 = array1.map(testCallBack)
-console.log(ArreyMap01)
+// ArreyMap01 = array1.map(testCallBack)
+// console.log(ArreyMap01)
 
 // newMap()
 const newMap = (array, test) => {
     for (let i = 0; i < array.length; i++) {
         ArreyMap02.push(test(array[i]))
     }
-    console.log(ArreyMap02)
+    return ArreyMap02
 }
-newMap(array2, testCallBack)
+console.log("Map ", newMap(array2, testCallBack))
+console.log( "-------------------------------" )
 
-
-///////////////////////////////////////////////////////////////////////////
-//--- Some() ---//
+// ///////////////////////////////////////////////////////////////////////////
+// //--- Some() ---//
 
 
 // metodo some()
@@ -81,27 +83,26 @@ let arrayTest = [4, 5, 3, 2, 15, 3, 2, 1]
 
 console.log(arrayTest.some(value => value > 10))
 
-// newSome()
 
+// newSome()
 const newSome = (array, value) => {
     let result = false
     for (let i = 0; i < array.length; i++) {
-        
         if (array[i] > value) {
             result = true
         }
     }
     return result
 }
-console.log(newSome(arrayTest, 10))
+console.log("Some", newSome(arrayTest, 10))
+console.log( "-------------------------------" )
 
-
-///////////////////////////////////////////////////////////////////////////
-//--- Find() ---//
+// ///////////////////////////////////////////////////////////////////////////
+// //--- Find() ---//
 
 let arrayTestFind = [4, 5, 3, 200, 15, 3, 2, 1]
 
-const newFind = (array, value) => {
+const callBackFind = (array, value) => {
     let result = 0
     for (let i = 0; i < array.length; i++) {
         
@@ -109,40 +110,55 @@ const newFind = (array, value) => {
             return result = array[i]
         }
     }
-    
+    return result
+}
+
+const newFind = (array, value) => {
+    let result = callBackFind(array, value)
+    return result
 }
 // Deve retornar 200
-console.log(newFind(arrayTestFind, 10))
+console.log("Find ", newFind(arrayTestFind, 10))
+console.log( "-------------------------------" )
 
-
-///////////////////////////////////////////////////////////////////////////
-//--- FindIndex() ---//
+// ///////////////////////////////////////////////////////////////////////////
+// //--- FindIndex() ---//
 
 let arrayFindIndex = [4, 5, 3, 200, 15, 3, 2, 1]
 
-const newFindIndex = (array, value) => {
-    let index = 0
+// callBack FindIndex
+const callBackFindIndex = (array, value) => {
+    let result = 0
     for (let i = 0; i < array.length; i++) {
         
         if (array[i] > value) {
-            index = i
+            result = i
             break
         }
     }
+    return result
+}
+// 
+const newFindIndex = (array, number) => {
+    let index = callBackFindIndex(array, number)
+    
     // Deve retornar 3
-    console.log(index)
     return index
 }
-newFindIndex(arrayFindIndex, 10)
+
+console.log("Array do findIndex:", arrayFindIndex)
+console.log("findIndex | retorna o indice do primeiro valor maior que 10 =", newFindIndex(arrayFindIndex, 10))
+console.log( "-------------------------------" )
 
 
-///////////////////////////////////////////////////////////////////////////
-//--- every() ---//
+// ///////////////////////////////////////////////////////////////////////////
+// //--- every() ---//
 
 let arrayEvery1 = [ 22, 34, 45, 23, 67, 87, 130 ]
 let arrayEvery2 = [ 22, 34, 4, 23, 6, 7, 130 ]
 
-const newEvery = (array, value) => {
+// callBack Every
+const callBackEvery = (array, value) => {
     let result = true
     for (let i = 0; i < array.length; i++) {
         
@@ -152,38 +168,50 @@ const newEvery = (array, value) => {
     }
     return result
 }
+// newEvery
+const newEvery = (array, value) => {
+    let result = callBackEvery(array, value)
+    return result
+}
 //      Deve retornar true
-console.log(newEvery ( arrayEvery1, 10) )
+console.log("Every| todos os valores são maior que 10 ",newEvery ( arrayEvery1, 10) )
 //      Deve retornar false
-console.log(newEvery ( arrayEvery2, 10) )
+console.log("Every| tem valor menor que 10 ", newEvery ( arrayEvery2, 10) )
+console.log( "-------------------------------" )
 
-///////////////////////////////////////////////////////////////////////////
-//--- Filter() ---//
+// ///////////////////////////////////////////////////////////////////////////
+// //--- Filter() ---//
 
 let arrayFilter = [ 10, 54, 63, 8, 2, 62, 13, 1, 2, 97]
-
-const newFilter = ( array, value) => {
-    let arrayFiltered = new Array
-
+// callback filter()
+const callBackFilter = (array, filter) => {
+    let result = new Array
     for (let i = 0; i < array.length; i++) {
         
-        if (array[i] >= value) {
-            arrayFiltered.push(array[i])
+        if (array[i] > filter) {
+            result.push(array[i])
         }
     }
+    return result
+}
+
+const newFilter = ( array, value) => {
+
+    let arrayFiltered = callBackFilter(array, value)
+
     return arrayFiltered
 }
 
 let newArrayFiltered = newFilter(arrayFilter, 10)
 //      Deve retornar [ 10, 54, 63, 8, 2, 62, 13, 1, 2, 97]
-console.log(arrayFilter)
+console.log("Filter ", arrayFilter)
 //      Deve retornar [ 10, 54, 63, 62, 13, 97 ]
-console.log(newArrayFiltered)
+console.log("Filter | Maiores que 10", newArrayFiltered)
+console.log( "-------------------------------" )
 
 
-
-///////////////////////////////////////////////////////////////////////////
-//--- concat() ---//
+// ///////////////////////////////////////////////////////////////////////////
+// //--- concat() ---//
 
 const arrayConcat1 = ['Rodrigo', 'Luiz', 'Andrade', 'de', 'Oliveira']
 const arrayConcat2 = [12, 564, 23, 12, 76, 23, 96]
@@ -197,18 +225,16 @@ const newConcat = ( value1, value2) => {
     for (let i = 0; i < value2.length; i++) {
         arrayConcat.push(value2[i])
     }
-
     return arrayConcat
 }
 
 let newArrayConcat = newConcat(arrayConcat1, arrayConcat2)
 
-console.log(newArrayConcat)
+console.log("Concat ",newArrayConcat)
+console.log( "-------------------------------" )
 
-
-
-///////////////////////////////////////////////////////////////////////////
-//--- includes() ---//
+// ///////////////////////////////////////////////////////////////////////////
+// //--- includes() ---//
 
 const arrayIncludes = [ 30, 15, 34, 12, 70, 46 ]
 
@@ -221,11 +247,14 @@ const newIncludes = (array, value) => {
     }
     return result
 }
-console.log( newIncludes ( arrayIncludes, 34 ) )
+console.log("Includes ", newIncludes ( arrayIncludes, 34 ) )
 
 
-///////////////////////////////////////////////////////////////////////////
-//--- indexOf() ---//
+console.log( "-------------------------------" )
+
+
+// ///////////////////////////////////////////////////////////////////////////
+// //--- indexOf() ---//
 
 //   repliquei para testar caso haja números repetidos no 
 const arrayIndexOf = [ 10, 20, 30, 40, 50, '###' ,10, 20, 30, 40, 50]
@@ -241,12 +270,13 @@ const newIndexOf = (array, value) => {
     return result
 }
 //          deve retornar 2
-console.log( newIndexOf( arrayIndexOf, 10 ) )
+console.log("IndexOf ", newIndexOf( arrayIndexOf, 50 ) )
+
+console.log( "-------------------------------" )
 
 
-
-// ///////////////////////////////////////////////////////////////////////////
-// //--- join() ---//
+// // ///////////////////////////////////////////////////////////////////////////
+// // //--- join() ---//
 
 let arrayJoin = ['Rodrigo', 'Luiz', 'Andrade']
 
@@ -255,7 +285,7 @@ const newJoin = (array, value) => {
 
     for (let i = 0; i < array.length; i++) {
 
-        if (value === NaN || value === undefined) { value = ',' }
+        if (value === undefined) { value = ',' }
 
         join += `${array[i]}`
             
@@ -263,62 +293,36 @@ const newJoin = (array, value) => {
     }
     return join
 }
-console.log( newJoin(arrayJoin) )
+console.log("Join ", newJoin( arrayJoin ) )
+console.log("Join ", newJoin( arrayJoin, '' ) )
+console.log("Join ", newJoin( arrayJoin, ' ' ) )
+console.log("Join ", newJoin( arrayJoin, '-' ) )
+
+console.log( "-------------------------------" )
+
 
 // ///////////////////////////////////////////////////////////////////////////
 // //--- reduce() ---//
-
 const arrayReduce = [ 1, 2, 3, 4]
-const newReduce = (array, value) => {
+
+// callBack do Reduce
+const callBackReduce =(array) => {
     let result = 0
     for (let i = 0; i < array.length; i++) {
-
-        if (value != undefined) {
-            array.push(value)
-        }
-
         result+= array[i]
     }
     return result
 }
+
+// newReduce
+const newReduce = (array, value) => {
+    if (value != undefined) {
+        array.push(value)
+    }
+    let result = callBackReduce(array)
+    
+    return result
+}
+
 let resultReduce = newReduce(arrayReduce, 5)
-
-console.log(resultReduce)
-console.log(resultReduce, '')
-console.log(resultReduce, ' ')
-console.log(resultReduce, '-')
-console.log(resultReduce, '#')
-console.log(resultReduce, '_')
-
-// ///////////////////////////////////////////////////////////////////////////
-// //--- slice() ---//
-
-
-
-
-
-
-// ///////////////////////////////////////////////////////////////////////////
-// //--- flat() ---//
-
-
-
-
-
-
-
-// ///////////////////////////////////////////////////////////////////////////
-// //--- flatMap() ---//
-
-
-
-
-
-
-// ///////////////////////////////////////////////////////////////////////////
-// //--- Array.of() ---//
-
-
-
-
-
+console.log("Reduce ",resultReduce)
